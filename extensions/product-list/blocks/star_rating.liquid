@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cucc</title>
+  <style>
+    .product:not(:last-of-type) {
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; overflow-x: scroll;">
+    {% for product in collections.all.products %}
+      <div class="product" style="width: 250px;">
+        <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.title | escape }}" style="width: 250px; height: 250px; object-fit: cover;">
+        <h2>{{ product.title }}</h2>
+        <p>Price: ${{ product.price | money }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
+
+{% schema %}
+{
+  "name": "Product listing v3",
+  "target": "section",
+  "settings": [
+    { "type": "product", "id": "product", "label": "product", "autofill": true },
+    { "type": "color", "id": "colour", "label": "Star Colour", "default": "#ff0000" }
+  ]
+}
+{% endschema %}
